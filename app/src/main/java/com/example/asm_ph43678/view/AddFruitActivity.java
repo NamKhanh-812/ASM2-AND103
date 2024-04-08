@@ -93,7 +93,16 @@ binding.avatar.setOnClickListener(new View.OnClickListener() {
                 MultipartBody.Part multipartBodyPart = MultipartBody.Part.createFormData("image", file1.getName(),requestFile);
                 _ds_image.add(multipartBodyPart);
             });
-            httpRequest.callAPI().addFruitWithFileImage(mapRequestBody, _ds_image).enqueue(responseFruit);
+            if(_name.isEmpty()||_quantity.isEmpty()||_price.isEmpty()||_description.isEmpty()){
+                Toast.makeText(AddFruitActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+            }
+            else if(_ds_image.isEmpty()){
+                Toast.makeText(AddFruitActivity.this, "Phải có ảnh", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                httpRequest.callAPI().addFruitWithFileImage(mapRequestBody, _ds_image).enqueue(responseFruit);
+
+            }
 
 
         }

@@ -144,10 +144,18 @@ public class UpdateFruitActivity extends AppCompatActivity {
                         _ds_image.add(multipartBodyPart);
                     });
                 }
-
+                if(_name.isEmpty()||_quantity.isEmpty()||_price.isEmpty()||_description.isEmpty()){
+                    Toast.makeText(UpdateFruitActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+                }
+                else if(_ds_image.isEmpty()){
+                    Toast.makeText(UpdateFruitActivity.this, "Phải có ảnh", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    httpRequest.callAPI().updateFruitWithFileImage(mapRequestBody,
+                            fruit.get_id(), _ds_image).enqueue(responseFruit);
+                }
                 // Gửi yêu cầu cập nhật lên server
-                httpRequest.callAPI().updateFruitWithFileImage(mapRequestBody,
-                        fruit.get_id(), _ds_image).enqueue(responseFruit);
+
 
             }
         });
